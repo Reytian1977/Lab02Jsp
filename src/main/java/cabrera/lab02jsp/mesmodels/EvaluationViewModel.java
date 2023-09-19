@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Evaluation {
+public class EvaluationViewModel {
     //Propietes
     private int numero;
     private String nom;
@@ -16,11 +16,10 @@ public class Evaluation {
     private String telephone;
     private char sexe;
     private String note;
-    private Calendar dateEvaluation;
+    private String dateEvaluation;
     private String commentaires;
 
     //Methodes d'accès
-
     public int getNumero() {
         return numero;
     }
@@ -77,11 +76,11 @@ public class Evaluation {
         this.note = note;
     }
 
-    public Calendar getDateEvaluation() {
+    public String getDateEvaluation() {
         return dateEvaluation;
     }
 
-    public void setDateEvaluation(Calendar dateEvaluation) {
+    public void setDateEvaluation(String dateEvaluation) {
         this.dateEvaluation = dateEvaluation;
     }
 
@@ -94,7 +93,10 @@ public class Evaluation {
     }
 
     //Construteurs
-    public Evaluation(int numero, String nom, String prenom, String courriel, String telephone, char sexe, String note, Calendar dateEvaluation, String commentaires) {
+    public EvaluationViewModel() {
+    }
+
+    public EvaluationViewModel(int numero, String nom, String prenom, String courriel, String telephone, char sexe, String note, String dateEvaluation, String commentaires) {
         this.numero = numero;
         this.nom = nom;
         this.prenom = prenom;
@@ -106,17 +108,23 @@ public class Evaluation {
         this.commentaires = commentaires;
     }
 
-    public Evaluation() {
-    }
-
     //Methodes
-    private static String converDate(Calendar strDate){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return dateFormat.format(strDate.getTime());
+    private static Calendar converDate(String strDate){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try{
+            Date parseDate = dateFormat.parse(strDate);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(parseDate);
+            return cal;
+        }catch (ParseException e){
+            e.printStackTrace();;
+        }
+        return null;
     }
 
     //Methode Mapper
-    public EvaluationViewModel mapper(){
+    public Evaluation mapper(){
         int numero = getNumero();
         String nom = getNom();
         String prenom = getPrenom();
@@ -124,9 +132,9 @@ public class Evaluation {
         String telephone = getTelephone();
         char sexe = getSexe();
         String note = getNote();
-        String dateEvaluation = converDate(getDateEvaluation());
+        Calendar dateEvaluation = converDate(getDateEvaluation());
         String commentaire = getCommentaires();
 
-        return new EvaluationViewModel(numero, nom, prenom, courriel, telephone, sexe, note, dateEvaluation, commentaire);
+        return new Evaluation(numero, nom, prenom, courriel, telephone, sexe, note, dateEvaluation, commentaire);
     }
 }

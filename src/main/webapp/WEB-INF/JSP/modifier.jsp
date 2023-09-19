@@ -12,17 +12,36 @@
 <body>
 
 <!-- Variables -->
-<c:url var="UrlAccueil" value="/evaluation/index"/>
+<c:url var="UrlAccueil" value="/Accueil/accueil"/>
 <c:url var="UrlAjouter" value="/evaluation/ajouter"/>
 <c:url var="UrlListe" value="/evaluation/liste"/>
 <c:url var="UrlModifier" value="/evaluation/modifier"/>
+<c:url var="UrlContacter" value="/Accueil/contact"/>
 <c:set var="evaluation" value="${requestScope.evaluation}"/>
 <!--<fmt:formatDate value="${evaluation.dateEvaluation.time}" pattern="dd-MM-yyyy" var="dateEvaluation" />-->
+
+    <!-- Menu -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="${UrlAccueil}">Accueil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${UrlAjouter}">Ajouter évaluation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href=${UrlListe}>Liste évaluations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${UrlContacter}">Nous contacter</a>
+            </li>
+        </ul>
+    </nav>
 
     <div class="container mt-5">
         <h2>Modifier l'Évaluation</h2>
 
-        <form action="${UrlModifier}" method="post">
+        <form action="${UrlModifier}" method="post" name="FormModifier">
             <input type="hidden" name="numero" value="${evaluation.numero}">
 
             <div class="mb-3">
@@ -64,8 +83,8 @@
             </div>
 
             <div class="mb-3">
-                <label for="commentaire" class="form-label">Commentaires</label>
-                <textarea class="form-control" id="commentaire" name="comentaire">${evaluation.commentaires}</textarea>
+                <label for="commentaires" class="form-label">Commentaires</label>
+                <textarea class="form-control" id="commentaires" name="commentaires">${evaluation.commentaires}</textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">Sauvegarder les modifications</button>

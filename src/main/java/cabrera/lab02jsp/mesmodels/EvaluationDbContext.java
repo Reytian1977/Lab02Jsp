@@ -23,8 +23,12 @@ public class EvaluationDbContext implements IEvaluationContext {
         }
     };
 
-    public static List<Evaluation> getListeEvalutions() {
-        return listeEvalutions;
+    public static List<EvaluationViewModel> getListeEvalutions() {
+        List<EvaluationViewModel> liste = new ArrayList<>();
+        for (Evaluation evaluation : listeEvalutions) {
+            liste.add(evaluation.mapper());
+        }
+        return liste;
     }
 
     @Override
@@ -51,7 +55,6 @@ public class EvaluationDbContext implements IEvaluationContext {
         e.setCommentaires(evaluation.getCommentaires());
     }
 
-    @Override
     public Evaluation rechercher(int numero) {
         Evaluation evaluation;
         evaluation = EvaluationDbContext.listeEvalutions.stream().filter((a)->a.getNumero()==numero).findFirst().get();

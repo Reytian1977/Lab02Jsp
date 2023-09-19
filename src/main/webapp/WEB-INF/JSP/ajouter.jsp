@@ -11,9 +11,10 @@
 <body>
 
 <!-- Variables -->
-<c:url var="UrlAccueil" value="/evaluation/index"/>
+<c:url var="UrlAccueil" value="/Accueil/accueil"/>
 <c:url var="UrlAjouter" value="/evaluation/ajouter"/>
 <c:url var="UrlListe" value="/evaluation/liste"/>
+<c:url var="UrlContacter" value="/Accueil/contact"/>
 
     <!-- Menu -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -26,6 +27,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href=${UrlListe}>Liste évaluations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${UrlContacter}">Nous contacter</a>
             </li>
         </ul>
     </nav>
@@ -66,19 +70,19 @@
             <div class="form-group">
                 <label>Sexe:</label><br>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="sexe" id="masculin" value="Masculin" required>
+                    <input class="form-check-input" type="radio" name="sexe" id="masculin" value="M" required>
                     <label class="form-check-label" for="masculin">Masculin</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="sexe" id="feminin" value="Féminin">
+                    <input class="form-check-input" type="radio" name="sexe" id="feminin" value="F">
                     <label class="form-check-label" for="feminin">Féminin</label>
                 </div>
             </div>
 
             <!-- Commentaires -->
             <div class="form-group">
-                <label for="comentaire">Commentaires:</label>
-                <textarea class="form-control" id="comentaire" name="comentaire" rows="4"></textarea>
+                <label for="commentaires">Commentaires:</label>
+                <textarea class="form-control" id="commentaires" name="commentaires" rows="4"></textarea>
             </div>
 
             <!-- Note de l'évaluation -->

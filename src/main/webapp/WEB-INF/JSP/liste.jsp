@@ -12,11 +12,12 @@
 <body>
 
 <!-- Variables -->
-<c:url var="UrlAccueil" value="/evaluation/index"/>
+<c:url var="UrlAccueil" value="/Accueil/accueil"/>
 <c:url var="UrlAjouter" value="/evaluation/ajouter"/>
 <c:url var="UrlListe" value="/evaluation/liste"/>
 <c:url var="UrlModifier" value="/evaluation/modifier"/>
 <c:url var="UrlSupprimer" value="/evaluation/supprimer"/>
+<c:url var="UrlContacter" value="/Accueil/contact"/>
 
     <!-- Menu -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -29,6 +30,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href=${UrlListe}>Liste évaluations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${UrlContacter}">Nous contacter</a>
             </li>
         </ul>
     </nav>
@@ -64,9 +68,7 @@
                             <td>${e.telephone}</td>
                             <td>${e.sexe}</td>
                             <td>${e.note}</td>
-                            <td>
-                                <fmt:formatDate value="${e.dateEvaluation.time}" pattern="dd-MM-yyyy"/>
-                            </td>
+                            <td>${e.dateEvaluation}</td>
                             <td>${e.commentaires}</td>
                             <td>
                                 <!-- Modifier Button -->

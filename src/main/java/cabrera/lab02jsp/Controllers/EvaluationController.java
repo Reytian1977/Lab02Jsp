@@ -2,6 +2,7 @@ package cabrera.lab02jsp.Controllers;
 
 import cabrera.lab02jsp.mesmodels.Evaluation;
 import cabrera.lab02jsp.mesmodels.EvaluationDbContext;
+import cabrera.lab02jsp.mesmodels.EvaluationViewModel;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.coyote.Request;
 import org.springframework.stereotype.Controller;
@@ -13,12 +14,6 @@ public class EvaluationController {
 
     private EvaluationDbContext dc = new EvaluationDbContext();
     public EvaluationController(){}
-
-    //Methode Index
-    @RequestMapping(value = "/evaluation/index")
-    public ModelAndView index(){
-        return new ModelAndView("index");
-    }
 
     //Methode Liste
     @RequestMapping(value = "/evaluation/liste")
@@ -33,12 +28,14 @@ public class EvaluationController {
     }
 
     @RequestMapping(value = "/evaluation/ajouter", method = RequestMethod.POST)
-    public String ajouter(HttpServletRequest request){
+    public String ajouter(@ModelAttribute(name = "FormAjouter")EvaluationViewModel evaluationViewModel){
         //insérer votre code
-        Evaluation e = new Evaluation();
-        e = e.mapper(request);
+        Evaluation e = evaluationViewModel.mapper();
         dc.Ajouter(e);
-        return "redirect:/evaluation/index";
+
+
+
+        return "redirect:/Accueil/accueil";
     }
 
     //Methode Modifier
@@ -49,10 +46,9 @@ public class EvaluationController {
     }
 
     @RequestMapping(value = "/evaluation/modifier", method = RequestMethod.POST)
-    public String modifier(HttpServletRequest request){
+    public String modifier(@ModelAttribute(name = "FormModifier")EvaluationViewModel evaluationViewModel){
         //insérer votre code
-        Evaluation e = new Evaluation();
-        e = Evaluation.mapper(request);
+        Evaluation e = evaluationViewModel.mapper();
         dc.Modifier(e);
 
         return "redirect:/evaluation/liste";
