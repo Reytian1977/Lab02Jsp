@@ -8,12 +8,27 @@ import org.apache.coyote.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.HtmlUtils;
+
+import static org.springframework.web.util.HtmlUtils.htmlEscape;
 
 @Controller
 public class EvaluationController {
 
     private EvaluationDbContext dc = new EvaluationDbContext();
     public EvaluationController(){}
+
+    //Mehtode Escape
+    private Evaluation Escape(Evaluation e){
+        e.setNom(htmlEscape(e.getNom()));
+        e.setPrenom(htmlEscape(e.getPrenom()));
+        e.setCourriel(htmlEscape(e.getCourriel()));
+        e.setTelephone(htmlEscape(e.getTelephone()));
+        e.setNote(htmlEscape(e.getNote()));
+        e.setCommentaires(htmlEscape(e.getCommentaires()));
+
+        return e;
+    }
 
     //Methode Liste
     @RequestMapping(value = "/evaluation/liste")
@@ -31,6 +46,10 @@ public class EvaluationController {
     public String ajouter(@ModelAttribute(name = "FormAjouter")EvaluationViewModel evaluationViewModel){
         //insérer votre code
         Evaluation e = evaluationViewModel.mapper();
+
+        e = Escape(e);
+
+        //Ajouter dans la liste
         dc.Ajouter(e);
 
 
@@ -49,6 +68,9 @@ public class EvaluationController {
     public String modifier(@ModelAttribute(name = "FormModifier")EvaluationViewModel evaluationViewModel){
         //insérer votre code
         Evaluation e = evaluationViewModel.mapper();
+
+        e = Escape(e);
+
         dc.Modifier(e);
 
         return "redirect:/evaluation/liste";
